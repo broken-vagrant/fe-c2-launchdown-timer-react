@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import RotorGroup from "../RotorGroup";
 
 const pad = (value: number | string, len: number): string => {
@@ -12,7 +12,7 @@ const getTime = () => {
 
 interface TimerProps {
   uts: number,
-  onEnd: (...args: any) => void;
+  onEnd?: (...args: any) => void;
 }
 
 const initialState = {
@@ -32,12 +32,12 @@ const initialState = {
 
 const Timer = ({ uts, onEnd }: TimerProps) => {
   const [initialized, setInitialized] = useState(false);
-  const [intervalId, setIntervalId] = useState<null | number>(null);
   const [time, setTime] = useState(initialState);
-  const now = getTime();
+  const intervalRef = useRef<number | undefined>(undefined);
 
   const hasCountdownEnded = () => {
-    if (uts - now < 0) {
+    if (uts - getTime() < 0) {
+      clearInterval(intervalRef.current);
       if (onEnd) onEnd();
       return true;
     } else {
@@ -50,7 +50,7 @@ const Timer = ({ uts, onEnd }: TimerProps) => {
     if (hasCountdownEnded()) {
       setTime(initialState)
     } else {
-      setTime((time) => ({ prev: { ...time.prev, days: time.curr.days }, curr: { ...time.curr, days: pad(Math.floor((uts - now) / 86400), 2) } }))
+      setTime((time) => ({ prev: { ...time.prev, days: time.curr.days }, curr: { ...time.curr, days: pad(Math.floor((uts - getTime()) / 86400), 2) } }))
     }
     tick();
   }
@@ -93,7 +93,7 @@ const Timer = ({ uts, onEnd }: TimerProps) => {
     const id = setInterval(() => {
       tick()
     }, 1000);
-    setIntervalId(id);
+    intervalRef.current = id;
   }
   useEffect(() => {
     init();

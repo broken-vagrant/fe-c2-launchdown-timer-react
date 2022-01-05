@@ -4,6 +4,7 @@ import Timer from './Timer'
 function App() {
   // Unix timestamp (in seconds) to count down to
   const twoDaysFromNow = (new Date().getTime() / 1000) + (86400 * 2) + 1;
+  // const fiveSecondsFromNow = (new Date().getTime() / 1000) + (5) + 1;
 
   return (
     <div className="main-container">
