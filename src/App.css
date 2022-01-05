@@ -1,0 +1,87 @@
+@import url("https://fonts.googleapis.com/css2?family=Red+Hat+Text:wght@700&display=swap");
+:root {
+  --vw-mobile-min: 375px;
+  --vw-sm: 640px;
+  --vw-desktop-max: 1440px;
+
+  /* PRIMARY COLORS */
+  --color-grayish-blue: hsl(237, 18%, 59%);
+  --color-soft-red: hsl(345, 95%, 68%);
+
+  /* NEUTRAL COLORS */
+  --color-white: hsl(0, 0%, 100%);
+  --color-dark-desaturated-blue: hsl(236, 21%, 26%);
+  --color-dark-desaturated-blue-1: hsl(236, 14%, 22%);
+  --color-very-dark-blue: hsl(235, 16%, 14%);
+  --color-very-dark: hsl(234, 17%, 12%);
+
+  --rotor-width: 7rem;
+  --rotor-height: 12rem;
+  --digit-size: 8rem;
+  --rotor-cirlce-cut-size: 2rem;
+}
+
+*,
+*::after,
+*::before {
+  margin: 0;
+  padding: 0;
+  box-sizing: inherit;
+}
+html {
+  /* font-size: 16px; (browser default, depends on user setting) */
+  /*  defines what 1rem is */
+  font-size: 10px;
+  font-family: "Red Hat Text";
+}
+
+.main-container {
+  width: 100%;
+  min-height: 100vh;
+  background: var(--color-very-dark) url("./images/bg-stars.svg");
+  position: relative;
+}
+.main-container .hills {
+  position: absolute;
+  height: 20%;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: url("./images/pattern-hills.svg") no-repeat;
+  background-position: center;
+  background-size: cover;
+}
+.container {
+  min-height: 80vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+header {
+  margin: 8rem 0;
+  font-size: 1rem;
+  color: white;
+  letter-spacing: 1rem;
+  text-transform: uppercase;
+  text-align: center;
+}
+footer {
+  position: absolute;
+  bottom: 5%;
+  width: 100%;
+}
+footer .socials {
+  display: flex;
+  justify-content: center;
+}
+.socials .icon + .icon {
+  margin-left: 2rem;
+}
+.icon {
+  width: 30px;
+  height: 30px;
+}
+.icon:hover > svg path {
+  fill: var(--color-soft-red);
+}

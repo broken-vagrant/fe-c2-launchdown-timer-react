@@ -1,0 +1,101 @@
+.rotor {
+  font-size: var(--digit-size);
+  font-weight: 700;
+  color: var(--color-soft-red);
+  text-align: center;
+  position: relative;
+  width: var(--rotor-width);
+  height: var(--rotor-height);
+  float: left;
+  margin: 0px;
+  perspective: 200px;
+}
+/* for half circle cuts for first and last rotor in rotor-group */
+.rotor:last-of-type::before,
+.rotor:first-child::before {
+  content: "";
+  z-index: 3;
+  position: absolute;
+  width: var(--rotor-cirlce-cut-size);
+  height: var(--rotor-cirlce-cut-size);
+  border-radius: 50%;
+  background-color: var(--color-very-dark);
+}
+
+.rotor:first-child::before {
+  left: 0px;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.rotor:last-of-type::before {
+  right: 0px;
+  top: 50%;
+  transform: translate(50%, -50%);
+}
+
+.rotor__leaf {
+  z-index: 1;
+  position: absolute;
+  width: var(--rotor-width);
+  height: var(--rotor-height);
+  transform-style: preserve-3d;
+  transition: transform 0s;
+}
+
+.rotor__leaf.flipped {
+  transform: rotateX(-180deg);
+  transition: all 0.7s ease-in-out;
+}
+/*  
+    // Rotor classes
+    // Note that the faces which are initially visible are:
+    // - .rotor-leaf-front (top half of current rotor)
+    // - .rotor-bottom (bottom half of current rotor)
+    // Note that the faces which are initially hidden are:
+    // - .rotor-top (top half of next rotor)
+    // - .rotor-leaf-rear (bottom half of next rotor)
+*/
+
+/* rotor top half background */
+.rotor__top,
+.rotor__leaf__front {
+  background-color: var(--color-dark-desaturated-blue-1);
+}
+/* rotor bottom half background */
+.rotor__bottom,
+.rotor__leaf__rear {
+  background-color: var(--color-dark-desaturated-blue);
+}
+
+.rotor__leaf__front,
+.rotor__leaf__rear,
+.rotor__top,
+.rotor__bottom {
+  overflow: hidden;
+  position: absolute;
+  width: var(--rotor-width);
+  height: calc(var(--rotor-height) / 2);
+}
+.rotor__leaf__front,
+.rotor__leaf__rear {
+  margin: 0;
+  transform: rotateX(0deg);
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+.rotor__leaf__front,
+.rotor__top {
+  line-height: var(--rotor-height);
+}
+
+.rotor__leaf__rear {
+  line-height: 0px;
+  transform: rotateX(-180deg);
+}
+
+.rotor__bottom {
+  bottom: 0;
+  line-height: 0px;
+}
