@@ -66,6 +66,11 @@ header {
   text-transform: uppercase;
   text-align: center;
 }
+@media (max-width: 500px) {
+  header {
+    letter-spacing: 0.5rem;
+  }
+}
 footer {
   position: absolute;
   bottom: 5%;

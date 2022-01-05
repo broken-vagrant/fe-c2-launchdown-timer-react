@@ -48,3 +48,23 @@
 .rotor__group .rotor:last-of-type .rotor__leaf__front {
   border-top-right-radius: 4px;
 }
+
+@media (max-width: 640px) {
+  .rotor__group {
+    margin-right: 2.5rem;
+  }
+  .roto__group__label {
+    font-size: 1.5rem;
+    letter-spacing: 0.5rem;
+  }
+}
+
+@media (max-width: 500px) {
+  .rotor__group {
+    margin-right: 2rem;
+  }
+  .rotor__group__label {
+    font-size: 1rem;
+    letter-spacing: 0.3rem;
+  }
+}

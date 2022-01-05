@@ -99,3 +99,72 @@
   bottom: 0;
   line-height: 0px;
 }
+@media (max-width: 640px) {
+  .rotor {
+    font-size: calc(var(--digit-size) - 0.3 * var(--digit-size));
+  }
+  .rotor:last-of-type::before,
+  .rotor:first-child::before {
+    width: calc(var(--rotor-cirlce-cut-size) / 1.5);
+    height: calc(var(--rotor-cirlce-cut-size) / 1.5);
+  }
+  .rotor,
+  .rotor__leaf,
+  .rotor__leaf__front,
+  .rotor__leaf__rear,
+  .rotor__top,
+  .rotor__bottom,
+  .rotor::after {
+    width: calc(var(--rotor-width) - 0.3 * var(--rotor-width));
+  }
+  .rotor__leaf__front,
+  .rotor__top {
+    line-height: calc(var(--rotor-height) / 1.5);
+  }
+  .rotor__leaf,
+  .rotor {
+    height: calc(var(--rotor-height) / 1.5);
+  }
+  .rotor__leaf__front,
+  .rotor__leaf__rear,
+  .rotor__top,
+  .rotor__bottom,
+  .rotor::after {
+    height: calc(var(--rotor-height) / 1.5);
+  }
+}
+@media (max-width: 500px) {
+  .rotor {
+    font-size: calc(var(--digit-size) - 0.5 * var(--digit-size));
+  }
+  .rotor:last-of-type::before,
+  .rotor:first-child::before {
+    width: calc(var(--rotor-cirlce-cut-size) / 2);
+    height: calc(var(--rotor-cirlce-cut-size) / 1.7);
+  }
+  .rotor,
+  .rotor__leaf,
+  .rotor__leaf__front,
+  .rotor__leaf__rear,
+  .rotor__top,
+  .rotor__bottom,
+  .rotor::after {
+    width: calc(var(--rotor-width) - 0.5 * var(--rotor-width));
+  }
+
+  .rotor__leaf__front,
+  .rotor__top {
+    line-height: calc(var(--rotor-height) / 1.7);
+  }
+  .rotor__leaf,
+  .rotor {
+    height: calc(var(--rotor-height) / 1.7);
+  }
+  .rotor__leaf__front,
+  .rotor__leaf__rear,
+  .rotor__top,
+  .rotor__bottom,
+  .rotor::after {
+    height: calc(var(--rotor-height) / 3.4);
+  }
+}
