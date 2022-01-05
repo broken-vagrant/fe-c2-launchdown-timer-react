@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import RotorGroup from "../RotorGroup";
+import RotorGroup from "./RotorGroup";
 
 const pad = (value: number | string, len: number): string => {
   value = value.toString()

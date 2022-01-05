@@ -1,5 +1,4 @@
-import classes from './index.module.css'
-import Rotor from "../Rotor";
+import Rotor from "./Rotor";
 
 interface Props {
   label: "Hours" | "Days" | "Minutes" | "Seconds";
@@ -13,11 +12,11 @@ const RotorGroup = ({ label, curr, prev }: Props) => {
   }
   const noOfRotors = label === "Days" ? prev.length : 2;
   return (
-    <div className={classes.rotor__group}>
+    <div className="rotor__group">
       {
         Array(noOfRotors).fill(null).map((_, i) => <Rotor key={`${label}_${i}`} curr={curr[i]} prev={prev[i]} />)
       }
-      <span className={classes.rotor__group__label}>{label}</span>
+      <span className="rotor__group__label">{label}</span>
     </div>
   )
 }

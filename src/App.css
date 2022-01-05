@@ -90,3 +90,250 @@ footer .socials {
 .icon:hover > svg path {
   fill: var(--color-soft-red);
 }
+
+/* RotorGroup */
+.rotor__group {
+  position: relative;
+  float: left;
+  margin-right: 3rem;
+}
+.rotor__group__label {
+  color: var(--color-grayish-blue);
+  font-size: 1.3rem;
+  letter-spacing: 0.7rem;
+  text-transform: uppercase;
+  position: absolute;
+  bottom: -6rem;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.rotor__group:last-child {
+  margin-right: 0;
+}
+
+/* move digits closer*/
+.rotor__group .rotor:first-child {
+  text-align: right;
+}
+.rotor__group .rotor:last-of-type {
+  text-align: left;
+  margin-bottom: 3rem;
+}
+/* end move digits closer*/
+
+/* TODO: fix below not applying styles */
+/* add border-radius */
+.rotor__group .rotor:first-child .rotor__bottom {
+  border-bottom-left-radius: 4px;
+}
+.rotor__group .rotor:last-of-type .rotor__bottom {
+  border-bottom-right-radius: 4px;
+}
+.rotor__group .rotor:first-child .rotor__top {
+  border-top-left-radius: 4px;
+}
+.rotor__group .rotor:last-of-type .rotor__top {
+  border-top-right-radius: 4px;
+}
+.rotor__group .rotor:first-child .rotor__leaf__front {
+  border-top-left-radius: 4px;
+}
+.rotor__group .rotor:last-of-type .rotor__leaf__front {
+  border-top-right-radius: 4px;
+}
+
+@media (max-width: 640px) {
+  .rotor__group {
+    margin-right: 2.5rem;
+  }
+  .roto__group__label {
+    font-size: 1.5rem;
+    letter-spacing: 0.5rem;
+  }
+}
+
+@media (max-width: 500px) {
+  .rotor__group {
+    margin-right: 2rem;
+  }
+  .rotor__group__label {
+    font-size: 1rem;
+    letter-spacing: 0.3rem;
+  }
+}
+
+/* End RotorGroup */
+
+/* Rotor */
+.rotor {
+  font-size: var(--digit-size);
+  font-weight: 700;
+  color: var(--color-soft-red);
+  text-align: center;
+  position: relative;
+  width: var(--rotor-width);
+  height: var(--rotor-height);
+  float: left;
+  margin: 0px;
+  perspective: 200px;
+}
+/* for half circle cuts for first and last rotor in rotor-group */
+.rotor:last-of-type::before,
+.rotor:first-child::before {
+  content: "";
+  z-index: 3;
+  position: absolute;
+  width: var(--rotor-cirlce-cut-size);
+  height: var(--rotor-cirlce-cut-size);
+  border-radius: 50%;
+  background-color: var(--color-very-dark);
+}
+
+.rotor:first-child::before {
+  left: 0px;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.rotor:last-of-type::before {
+  right: 0px;
+  top: 50%;
+  transform: translate(50%, -50%);
+}
+
+.rotor__leaf {
+  z-index: 1;
+  position: absolute;
+  width: var(--rotor-width);
+  height: var(--rotor-height);
+  transform-style: preserve-3d;
+  transition: transform 0s;
+}
+
+.rotor__leaf.flipped {
+  transform: rotateX(-180deg);
+  transition: all 0.7s ease-in-out;
+}
+/*  
+    // Rotor classes
+    // Note that the faces which are initially visible are:
+    // - .rotor-leaf-front (top half of current rotor)
+    // - .rotor-bottom (bottom half of current rotor)
+    // Note that the faces which are initially hidden are:
+    // - .rotor-top (top half of next rotor)
+    // - .rotor-leaf-rear (bottom half of next rotor)
+*/
+
+/* rotor top half background */
+.rotor__top,
+.rotor__leaf__front {
+  background-color: var(--color-dark-desaturated-blue-1);
+}
+/* rotor bottom half background */
+.rotor__bottom,
+.rotor__leaf__rear {
+  background-color: var(--color-dark-desaturated-blue);
+}
+
+.rotor__leaf__front,
+.rotor__leaf__rear,
+.rotor__top,
+.rotor__bottom {
+  overflow: hidden;
+  position: absolute;
+  width: var(--rotor-width);
+  height: calc(var(--rotor-height) / 2);
+}
+.rotor__leaf__front,
+.rotor__leaf__rear {
+  margin: 0;
+  transform: rotateX(0deg);
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+.rotor__leaf__front,
+.rotor__top {
+  line-height: var(--rotor-height);
+}
+
+.rotor__leaf__rear {
+  line-height: 0px;
+  transform: rotateX(-180deg);
+}
+
+.rotor__bottom {
+  bottom: 0;
+  line-height: 0px;
+}
+@media (max-width: 640px) {
+  .rotor {
+    font-size: calc(var(--digit-size) - 0.3 * var(--digit-size));
+  }
+  .rotor:last-of-type::before,
+  .rotor:first-child::before {
+    width: calc(var(--rotor-cirlce-cut-size) / 1.5);
+    height: calc(var(--rotor-cirlce-cut-size) / 1.5);
+  }
+  .rotor,
+  .rotor__leaf,
+  .rotor__leaf__front,
+  .rotor__leaf__rear,
+  .rotor__top,
+  .rotor__bottom,
+  .rotor::after {
+    width: calc(var(--rotor-width) - 0.3 * var(--rotor-width));
+  }
+  .rotor__leaf__front,
+  .rotor__top {
+    line-height: calc(var(--rotor-height) / 1.5);
+  }
+  .rotor__leaf,
+  .rotor {
+    height: calc(var(--rotor-height) / 1.5);
+  }
+  .rotor__leaf__front,
+  .rotor__leaf__rear,
+  .rotor__top,
+  .rotor__bottom,
+  .rotor::after {
+    height: calc(var(--rotor-height) / 1.5);
+  }
+}
+@media (max-width: 500px) {
+  .rotor {
+    font-size: calc(var(--digit-size) - 0.5 * var(--digit-size));
+  }
+  .rotor:last-of-type::before,
+  .rotor:first-child::before {
+    width: calc(var(--rotor-cirlce-cut-size) / 2);
+    height: calc(var(--rotor-cirlce-cut-size) / 1.7);
+  }
+  .rotor,
+  .rotor__leaf,
+  .rotor__leaf__front,
+  .rotor__leaf__rear,
+  .rotor__top,
+  .rotor__bottom,
+  .rotor::after {
+    width: calc(var(--rotor-width) - 0.5 * var(--rotor-width));
+  }
+
+  .rotor__leaf__front,
+  .rotor__top {
+    line-height: calc(var(--rotor-height) / 1.7);
+  }
+  .rotor__leaf,
+  .rotor {
+    height: calc(var(--rotor-height) / 1.7);
+  }
+  .rotor__leaf__front,
+  .rotor__leaf__rear,
+  .rotor__top,
+  .rotor__bottom,
+  .rotor::after {
+    height: calc(var(--rotor-height) / 3.4);
+  }
+}
+/* End Rotor */
