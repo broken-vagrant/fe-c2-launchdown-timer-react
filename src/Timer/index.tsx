@@ -14,13 +14,26 @@ interface TimerProps {
   uts: number,
   onEnd: (...args: any) => void;
 }
+
+const initialState = {
+  curr: {
+    mins: '00',
+    secs: '00',
+    hours: '00',
+    days: '00',
+  },
+  prev: {
+    mins: '00',
+    secs: '00',
+    hours: '00',
+    days: '00',
+  }
+}
+
 const Timer = ({ uts, onEnd }: TimerProps) => {
   const [initialized, setInitialized] = useState(false);
   const [intervalId, setIntervalId] = useState<null | number>(null);
-  const [days, setDays] = useState({ curr: '00', prev: '00' });
-  const [hours, setHours] = useState({ curr: '00', prev: '00' });
-  const [minutes, setMinutes] = useState({ curr: '00', prev: '00' });
-  const [seconds, setSeconds] = useState({ curr: '00', prev: '00' });
+  const [time, setTime] = useState(initialState);
   const now = getTime();
 
   const hasCountdownEnded = () => {
@@ -35,9 +48,9 @@ const Timer = ({ uts, onEnd }: TimerProps) => {
   const init = () => {
     setInitialized(true);
     if (hasCountdownEnded()) {
-      setDays((days) => ({ prev: days.curr, curr: '00' }));
+      setTime(initialState)
     } else {
-      setDays((days) => ({ curr: pad(Math.floor((uts - now) / 86400), 2), prev: days.curr }));
+      setTime((time) => ({ prev: { ...time.prev, days: time.curr.days }, curr: { ...time.curr, days: pad(Math.floor((uts - now) / 86400), 2) } }))
     }
     tick();
   }
@@ -49,24 +62,27 @@ const Timer = ({ uts, onEnd }: TimerProps) => {
 
     // Days remaining
     const daysLeft = Math.floor(diff / 86400); // 24*60*60 (1 day) = 86400 seconds;
-    setDays((days) => ({ prev: days.curr, curr: pad(daysLeft, 2) }))
     diff -= daysLeft * 86400;
 
     // Hours remaining
     const hoursLeft = Math.floor(diff / 3600); // 60 * 60 (1 hour) = 3600 seconds;
-    setHours((hours) => ({ prev: hours.curr, curr: pad(hoursLeft, 2) }))
     diff -= hoursLeft * 3600;
 
     // Minutes remaining
     const minsLeft = Math.floor(diff / 60); // 1 min = 60 seconds;
-    setMinutes((minutes) => ({ prev: minutes.curr, curr: pad(minsLeft, 2) }))
     diff -= minsLeft * 60;
 
     // Seconds remaining
     const secondsLeft = Math.floor(diff);
-    setSeconds((seconds) => {
-      return { prev: seconds.curr, curr: pad(secondsLeft, 2) }
-    })
+
+    setTime((currTime) => ({
+      prev: currTime.curr, curr: {
+        days: pad(daysLeft, 2),
+        hours: pad(hoursLeft, 2),
+        mins: pad(minsLeft, 2),
+        secs: pad(secondsLeft, 2)
+      }
+    }))
 
     // Has the countdown ended
     hasCountdownEnded();
@@ -86,10 +102,10 @@ const Timer = ({ uts, onEnd }: TimerProps) => {
 
   return (
     <div>
-      <RotorGroup label="Days" value={days} />
-      <RotorGroup label="Hours" value={hours} />
-      <RotorGroup label="Minutes" value={minutes} />
-      <RotorGroup label="Seconds" value={seconds} />
+      <RotorGroup label="Days" curr={time.curr.days} prev={time.prev.days} />
+      <RotorGroup label="Hours" curr={time.curr.hours} prev={time.prev.hours} />
+      <RotorGroup label="Minutes" curr={time.curr.mins} prev={time.prev.mins} />
+      <RotorGroup label="Seconds" curr={time.curr.secs} prev={time.prev.secs} />
     </div>
   )
 }
